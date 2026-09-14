@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A modern, original restaurant website concept built with HTML, CSS and JavaScript.">
+  <title>Ember & Thyme — Restaurant</title>
+  <style>
+    :root{
+      --bg:#10100f; --surface:#171715; --surface-2:#201f1b; --text:#f7f3e9;
+      --muted:#b7b1a4; --accent:#e8a94a; --accent-2:#f1c978; --line:#34322c;
+      --max:1180px; --radius:24px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea,select{font:inherit}
+    .container{width:min(calc(100% - 40px),var(--max));margin:auto}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(16,16,15,.78);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em}
+    .brand-mark{width:38px;height:38px;border:1px solid #80602d;border-radius:12px;display:grid;place-items:center;color:var(--accent);font-size:20px;background:linear-gradient(145deg,#2a251b,#151513)}
+    .links{display:flex;gap:28px;color:#d7d1c4;font-size:14px}
+    .links a:hover{color:var(--accent-2)}
+    .nav-actions{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:999px;padding:12px 19px;font-weight:750;cursor:pointer;transition:.2s}
+    .btn-primary{background:var(--accent);color:#17130b}
+    .btn-primary:hover{background:var(--accent-2);transform:translateY(-1px)}
+    .btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
+    .btn-ghost:hover{border-color:#706957}
+    .menu{display:none;background:none;color:white;border:0;font-size:25px;cursor:pointer}
+
+    .hero{min-height:760px;padding:150px 0 80px;display:grid;grid-template-columns:1.02fr .98fr;gap:70px;align-items:center}
+    .eyebrow{color:var(--accent-2);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800;margin-bottom:20px}
+    h1{font-family:Georgia,serif;font-size:clamp(52px,7vw,92px);line-height:.98;letter-spacing:-.055em;font-weight:500;max-width:720px}
+    .hero-copy{color:var(--muted);font-size:18px;max-width:600px;margin:26px 0 30px}
+    .hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-art{min-height:510px;border-radius:34px;position:relative;overflow:hidden;border:1px solid #3a352b;background:
+      radial-gradient(circle at 65% 25%,rgba(239,178,77,.28),transparent 25%),
+      radial-gradient(circle at 30% 70%,rgba(125,74,27,.24),transparent 28%),
+      linear-gradient(145deg,#28231b,#11110f 65%);}
+    .plate{position:absolute;width:340px;height:340px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-48%);
+      background:radial-gradient(circle,#d9b777 0 5%,#8e6d3c 6% 7%,#27241e 8% 64%,#151512 65% 100%);
+      box-shadow:0 25px 70px rgba(0,0,0,.55)}
+    .food{position:absolute;width:78px;height:78px;border-radius:50%;background:linear-gradient(145deg,#c7652b,#63331d);box-shadow:0 7px 18px #0008}
+    .food:nth-child(2){left:32%;top:35%}.food:nth-child(3){left:55%;top:31%}.food:nth-child(4){left:47%;top:57%}
+    .leaf{position:absolute;width:45px;height:20px;border-radius:100% 0 100% 0;background:#667348;transform:rotate(25deg)}
+    .leaf:nth-child(5){left:39%;top:54%}.leaf:nth-child(6){left:60%;top:45%}
+    .art-note{position:absolute;left:24px;bottom:24px;background:#171612dd;border:1px solid #464032;padding:12px 15px;border-radius:15px;color:#d8d0bf;font-size:12px}
+
+    section{padding:105px 0}
+    .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:45px}
+    .section-head h2{font:500 clamp(38px,5vw,58px)/1 Georgia,serif;letter-spacing:-.04em}
+    .section-head p{max-width:500px;color:var(--muted)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+    .story-card{padding:35px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#191916,#121211)}
+    .story-card p{color:var(--muted);margin:15px 0}
+    .quote{border-left:2px solid var(--accent);padding-left:18px;margin-top:25px;color:#e7dfce;font-family:Georgia,serif;font-size:22px}
+    .pattern-art{height:430px;border-radius:var(--radius);border:1px solid var(--line);background:
+      linear-gradient(30deg,#0000 45%,#3c3323 46% 47%,#0000 48% 100%),
+      linear-gradient(-30deg,#0000 45%,#3c3323 46% 47%,#0000 48% 100%),
+      radial-gradient(circle at center,#29251e,#121210 65%);background-size:58px 58px,58px 58px,100% 100%;position:relative;overflow:hidden}
+    .pattern-art:after{content:"OPEN FIRE • SLOW CRAFT • LOCAL FLAVOUR";position:absolute;inset:0;display:grid;place-items:center;transform:rotate(-15deg);font-size:13px;letter-spacing:.3em;color:#c9a35f55;font-weight:800}
+
+    .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .menu-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:25px;transition:.2s}
+    .menu-card:hover{transform:translateY(-4px);border-color:#685633}
+    .dish-icon{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;background:#26231c;font-size:29px;margin-bottom:20px}
+    .menu-card h3{font:600 25px Georgia,serif}
+    .menu-card p{color:var(--muted);font-size:14px;margin:9px 0 17px}
+    .price{color:var(--accent-2);font-weight:800}
+    .menu-label{font-size:11px;color:#8e8778;text-transform:uppercase;letter-spacing:.13em}
+
+    .experience{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .features{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+    .feature{background:var(--surface);padding:30px}
+    .feature strong{display:block;font:500 25px Georgia,serif;margin:12px 0 7px}
+    .feature span{color:var(--muted);font-size:14px}
+    .feature b{font-size:25px;color:var(--accent)}
+
+    .reviews{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+    .rating{font-size:48px;color:var(--accent-2);font-family:Georgia,serif}
+    .review-list{display:grid;gap:14px}
+    .review{padding:25px;border:1px solid var(--line);border-radius:18px;background:#151513}
+    .stars{color:var(--accent);letter-spacing:3px}
+    .review p{color:#d0c9bb;margin:9px 0}
+    .review small{color:#817b70}
+
+    .reserve{background:linear-gradient(135deg,#2a2419,#171612 55%,#211b12)}
+    .reserve-box{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+    .reserve-copy p{color:#bdb5a5;max-width:480px;margin-top:15px}
+    form{display:grid;gap:13px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    input,textarea,select{width:100%;background:#11110f;border:1px solid #454033;color:white;border-radius:13px;padding:14px 15px;outline:none}
+    input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+    textarea{min-height:125px;resize:vertical}
+    .form-status{min-height:24px;color:var(--accent-2);font-size:14px}
+
+    footer{padding:45px 0 30px;border-top:1px solid var(--line)}
+    .footer-top{display:flex;justify-content:space-between;gap:30px}
+    .footer-copy{color:#817b70;font-size:13px;max-width:390px;margin-top:12px}
+    .footer-links{display:flex;gap:22px;color:#aaa294;font-size:14px}
+    .footer-bottom{margin-top:35px;padding-top:20px;border-top:1px solid var(--line);color:#6e695f;font-size:12px;display:flex;justify-content:space-between}
+
+    @media(max-width:900px){
+      .links{display:none}.menu{display:block}.nav-actions .btn{display:none}
+      .hero,.about-grid,.reviews,.reserve-box{grid-template-columns:1fr;gap:40px}
+      .hero{padding-top:125px}.hero-art{min-height:420px}
+      .menu-grid{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr 1fr}
+      .section-head{display:block}.section-head p{margin-top:15px}
+      .mobile-open .links{display:flex;position:absolute;top:76px;left:0;right:0;background:#11110f;padding:22px 20px;flex-direction:column;border-bottom:1px solid var(--line)}
+    }
+    @media(max-width:560px){
+      .container{width:min(calc(100% - 28px),var(--max))}
+      section{padding:75px 0}.hero{min-height:auto}.hero-art{min-height:340px}
+      .plate{width:250px;height:250px}.food{width:58px;height:58px}
+      .menu-grid,.features,.row{grid-template-columns:1fr}
+      .footer-top,.footer-bottom{flex-direction:column}.footer-links{flex-wrap:wrap}
+      h1{font-size:52px}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="Ember and Thyme home">
+        <span class="brand-mark">✦</span><span>Ember & Thyme</span>
+      </a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="#about">Our Story</a>
+        <a href="#menu">Menu</a>
+        <a href="#experience">Experience</a>
+        <a href="#reviews">Reviews</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary" href="#reserve">Reserve a Table</a>
+        <button class="menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div>
+        <div class="eyebrow">Independent kitchen · Est. 2026</div>
+        <h1>Good food deserves a little drama.</h1>
+        <p class="hero-copy">A warm neighbourhood restaurant built around seasonal ingredients, open-fire cooking and plates meant to be shared.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#menu">Explore the menu →</a>
+          <a class="btn btn-ghost" href="#reserve">Book your evening</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Original CSS illustration of a plated meal">
+        <div class="plate">
+          <i class="food"></i><i class="food"></i><i class="food"></i><i class="leaf"></i><i class="leaf"></i>
+        </div>
+        <div class="art-note">Original CSS illustration · no stock image required</div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="story-card">
+          <div class="eyebrow">The idea</div>
+          <h2>Small menu. Big personality.</h2>
+          <p>We keep our menu focused so our kitchen can obsess over every detail. Produce changes with the season, sauces are made in-house, and the room is designed for long conversations.</p>
+          <p>Come for a quick plate after work or stay for the whole evening. There is no dress code and no rush.</p>
+          <div class="quote">“The best table is the one where everyone orders something different.”</div>
+        </div>
+        <div class="pattern-art" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow">Tonight's favourites</div><h2>A menu worth slowing down for.</h2></div>
+          <p>Three starting points from our fictional seasonal menu. Replace these with your own dishes, prices and descriptions.</p>
+        </div>
+        <div class="menu-grid">
+          <article class="menu-card"><div class="dish-icon">🍅</div><span class="menu-label">Starter</span><h3>Charred Tomato Toast</h3><p>Sourdough, whipped herb cheese, smoked tomato and crisp basil.</p><span class="price">₹320</span></article>
+          <article class="menu-card"><div class="dish-icon">🥘</div><span class="menu-label">Main</span><h3>Ember Bowl</h3><p>Fire-roasted vegetables, spiced grains, greens and a bright citrus dressing.</p><span class="price">₹540</span></article>
+          <article class="menu-card"><div class="dish-icon">🍫</div><span class="menu-label">Dessert</span><h3>Dark Cocoa Pot</h3><p>Silky cocoa custard, toasted nuts and a pinch of sea salt.</p><span class="price">₹290</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow">Why people stay</div><h2>Designed for the whole evening.</h2></div>
+          <p>Everything here is intentionally simple: good plates, comfortable seats and service that knows when to step in.</p>
+        </div>
+        <div class="features">
+          <div class="feature"><b>01</b><strong>Seasonal plates</strong><span>Our small menu changes as ingredients do.</span></div>
+          <div class="feature"><b>02</b><strong>Open kitchen</strong><span>Watch the team finish dishes from the pass.</span></div>
+          <div class="feature"><b>03</b><strong>Easy evenings</strong><span>Walk-ins welcome; reservations recommended.</span></div>
+          <div class="feature"><b>04</b><strong>Vegetarian friendly</strong><span>Thoughtful options without an afterthought.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container reviews">
+        <div>
+          <div class="eyebrow">Guest notes</div>
+          <h2>Good meals leave stories behind.</h2>
+          <div class="rating">4.9<span style="font-size:20px;color:#8c8578"> / 5</span></div>
+          <p style="color:var(--muted)">Sample testimonials for a fictional restaurant concept. Replace them with genuine customer feedback before publishing.</p>
+        </div>
+        <div class="review-list">
+          <article class="review"><div class="stars">★★★★★</div><p>“The kind of place where one shared plate somehow turns into five.”</p><small>— Aanya · Weekend dinner</small></article>
+          <article class="review"><div class="stars">★★★★★</div><p>“Warm room, thoughtful food and zero pressure to hurry.”</p><small>— Rohan · Date night</small></article>
+          <article class="review"><div class="stars">★★★★★</div><p>“The menu is compact, but every dish feels properly considered.”</p><small>— Meera · Food lover</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reserve" id="reserve">
+      <div class="container reserve-box">
+        <div class="reserve-copy">
+          <div class="eyebrow">Make it a plan</div>
+          <h2>Save a seat at the table.</h2>
+          <p>Use this demo form for your portfolio project. It currently validates the fields locally and does not send personal data anywhere.</p>
+        </div>
+        <form id="reservationForm">
+          <div class="row">
+            <input id="name" required placeholder="Your name" autocomplete="name">
+            <input id="phone" required placeholder="Phone number" autocomplete="tel">
+          </div>
+          <div class="row">
+            <input id="date" type="date" required>
+            <select id="guests" required><option value="">Guests</option><option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5+ guests</option></select>
+          </div>
+          <textarea id="message" placeholder="Anything we should know?"></textarea>
+          <button class="btn btn-primary" type="submit">Request reservation →</button>
+          <div class="form-status" id="status" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a class="brand" href="#home"><span class="brand-mark">✦</span><span>Ember & Thyme</span></a>
+          <p class="footer-copy">A fictional restaurant brand created as an original HTML/CSS/JS portfolio concept.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#about">Story</a><a href="#menu">Menu</a><a href="#experience">Experience</a><a href="#reserve">Reservations</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Ember & Thyme</span><span>Built from scratch with HTML · CSS · JavaScript</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn.addEventListener('click', () => {
+      const open = nav.classList.toggle('mobile-open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    document.querySelectorAll('.links a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('mobile-open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    const form = document.getElementById('reservationForm');
+    const status = document.getElementById('status');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      status.textContent = `Thanks, ${name}. Your demo request has been recorded on this page only.`;
+      form.reset();
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
