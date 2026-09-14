@@ -30,7 +30,8 @@ A modern, responsive restaurant website designed to showcase a fictional restaur
 Design and code is completely written by The Creative Coder + AI. 
 ```
 
-## Preview
+## Preview 
+ - [Demo]([https://pranjalvidyarthi.github.io/](https://pranjalvidyarthi.github.io/Resturant-website-01/#reviews))
 
 ## Purpose:
 This is a practice/demo project, created to experiment with modern restaurant UI design, responsive layouts, animations, and JavaScript-based interactions without using any frontend framework.
