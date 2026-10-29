@@ -3,7 +3,7 @@
 Project: Restaurant Landing Page
 Tech Stack: HTML5, CSS3, JavaScript
 
-A modern, responsive restaurant website designed to showcase a fictional restaurant's brand, menu, services, and customer experience. The project focuses on creating a visually appealing UI while demonstrating practical frontend development skills using vanilla HTML, CSS, and JavaScript.
+A modern, responsive restaurant website designed to showcase a fictional restaurant's brand, menu, services, and customer experience. 
 
 ## Key Sections:
 
@@ -32,6 +32,8 @@ Design and code is completely written by The Creative Coder + AI.
 
 ## Preview 
  - [Demo]([https://pranjalvidyarthi.github.io/](https://pranjalvidyarthi.github.io/Resturant-website-01/#reviews))
+ - Screenshots :
+ <img width="1837" height="924" alt="image" src="https://github.com/user-attachments/assets/0ff3a603-e5d9-48fa-8b44-0a8a7d28fe7a" />
 
 ## Purpose:
 This is a practice/demo project, created to experiment with modern restaurant UI design, responsive layouts, animations, and JavaScript-based interactions without using any frontend framework.
