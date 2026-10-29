@@ -32,7 +32,7 @@ Design and code is completely written by The Creative Coder + AI.
 
 ## Preview 
 ```
- - Demo Link : https://pranjalvidyarthi.github.io/](https://pranjalvidyarthi.github.io/Resturant-website-01/#reviews
+ - Demo Link : https://pranjalvidyarthi.github.io/Resturant-website-01/#reviews
 ```
 
  - Screenshots :
