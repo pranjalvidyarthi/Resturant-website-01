@@ -31,7 +31,10 @@ Design and code is completely written by The Creative Coder + AI.
 ```
 
 ## Preview 
- - [Demo]([https://pranjalvidyarthi.github.io/](https://pranjalvidyarthi.github.io/Resturant-website-01/#reviews))
+```
+ - Demo Link : https://pranjalvidyarthi.github.io/](https://pranjalvidyarthi.github.io/Resturant-website-01/#reviews
+```
+
  - Screenshots :
  <img width="1837" height="924" alt="image" src="https://github.com/user-attachments/assets/0ff3a603-e5d9-48fa-8b44-0a8a7d28fe7a" />
 
